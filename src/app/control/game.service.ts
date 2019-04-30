@@ -32,7 +32,7 @@ export class GameService {
   draw() {
     this.removeStylingClass();
     console.log('Draw');
-    this.messageOut = 'It is DRAW!';
+    this.messageOut = 'DRAW!';
     document.getElementById(this.userChoice).classList.add('gray-glow');
   }
 
