@@ -2,6 +2,22 @@ html, app-root, app-view {
   background-color: rgb(50, 88, 138);
 }
 
+div.my-container {
+  display: flex;
+  flex-direction: column;
+}
+
+div.choices {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+}
+
 .my-container {
   background-color: rgb(59, 90, 136);
+}
+
+div.leaderboard {
+  width: 900px;
+  margin: 0 auto;
 }

@@ -1,7 +1,6 @@
 <div class="my-header">
-  <h1 class="text-center my-header" style="font-family: 'Arial Black'">Rock-Paper-Scissors</h1>
+  <h1 class="text-center my-header" style="font-family: 'Arial Black'">Rock Paper Scissors</h1>
 </div>
-<br>
 <br>
 <div class="my-container">
   <div>
@@ -9,7 +8,7 @@
       <div class="score-board">
         <div class="badge" id="user-label">User</div>
         <div class="badge" id="comp-label">Comp</div>
-        <span id="user">{{ result.getResult()[0] }}</span><span>:</span><span id="comp">{{ result.getResult()[1] }}
+        <span id="user">{{ result.getResult()[0] }}</span><span> : </span><span id="comp">{{ result.getResult()[1] }}
         </span>
       </div>
       <h3 class="my-font text-center">{{ game.messageOut }}</h3>
@@ -25,63 +24,77 @@
         <img class="choice" (click)="onClick('s')" id="s" src="assets/images/scissors.png" width="100" height="100">
       </div>
       <span class="my-font">Make your move!</span>
-      <h1 class="my-font">Comp choice:</h1>
-      <div class="col-xs-12" [ngSwitch]="game.compChoice">
-        <img src="assets/images/paper.png" alt="paper" height="150" width="150" *ngSwitchCase="'p'">
-        <img src="assets/images/rock.png" alt="rock" height="150" width="150" *ngSwitchCase="'r'">
-        <img src="assets/images/scissors.png" alt="scissors" height="150" width="150" *ngSwitchCase="'s'">
+      <div class="row choices">
+        <div class="playerchoice">
+            <h1 class="my-font">Player:</h1>
+            <div class="col-xs-12">
+              <img src="assets/images/paper.png" alt="paper" height="150" width="150">
+              <img src="assets/images/rock.png" alt="rock" height="150" width="150">
+              <img src="assets/images/scissors.png" alt="scissors" height="150" width="150">
+            </div>
+        </div>  
+        <div class="computerchoice">
+            <h1 class="my-font">Computer:</h1>
+            <div class="col-xs-12" [ngSwitch]="game.compChoice">
+              <img src="assets/images/paper.png" alt="paper" height="150" width="150" *ngSwitchCase="'p'">
+              <img src="assets/images/rock.png" alt="rock" height="150" width="150" *ngSwitchCase="'r'">
+              <img src="assets/images/scissors.png" alt="scissors" height="150" width="150" *ngSwitchCase="'s'">
+            </div>
+          </div>
       </div>
     </div>
   </div>
-  <h1 class="my-font">Leaderboard</h1>
   <!-- <button type="button" class="btn btn-primary">Primary</button>
   <button type="button" class="btn btn-secondary">Secondary</button>
-  <button type="button" class="btn btn-success">Success</button> -->
-  <!-- <button type="button" class="btn btn-danger">Danger</button> -->
-  <!-- <button type="button" class="btn btn-warning">Warning</button>
+  <button type="button" class="btn btn-success">Success</button>
+  <button type="button" class="btn btn-danger">Danger</button>
+  <button type="button" class="btn btn-warning">Warning</button>
   <button type="button" class="btn btn-info">Info</button>
   <button type="button" class="btn btn-light">Light</button>
   <button type="button" class="btn btn-dark">Dark</button> -->
-  <table class="table">
-    <thead class="my-font">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Score</th>
-        <th>
-          <div class="btn-group pull-right">
-            <button type="button" class="btn btn-success"(click)="savePlayer()" >Save</button>
-            <button type="button" class="btn btn-info" [disabled]="disableAddButton" (click)="addPlayer()">Add</button>
-          </div>
-        </th>
-      </tr>
-    </thead>
-    <tbody class="my-font">
-      <tr *ngFor="let player of playerArray; let i = index">
-        <th *ngIf="player.editMode === false" scope="row">{{player.hashtag}}</th>
-        <td *ngIf="player.editMode === false">{{player.firstName}}</td>
-        <td *ngIf="player.editMode === false">{{player.lastName}}</td>
-        <td *ngIf="player.editMode === false">{{player.score}}</td>
-
-        <th *ngIf="player.editMode" scope="row">
-          <input [(ngModel)]="player.hashtag" type="text" class="form-control" placeholder="Rank">
-        </th>
-        <td *ngIf="player.editMode">
-          <input [(ngModel)]="player.firstName" type="text" class="form-control" placeholder="First Name">
-
-        </td>
-        <td *ngIf="player.editMode">
-          <input [(ngModel)]="player.lastName" type="text" class="form-control" placeholder="Last Name">
-
-        </td>
-        <td *ngIf="player.editMode">
-          <input [(ngModel)]="player.score" type="text" class="form-control" placeholder="Score">
-
-        </td>
-
-        <td><button type="button" class="btn btn-danger pull-right" (click)="removePlayer(i)">X</button></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="leaderboard">
+      <h1 class="my-font">Leaderboard</h1>
+      <table class="table">
+        <thead class="my-font">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Score</th>
+            <th>
+              <div class="btn-group pull-right">
+                <button type="button" class="btn btn-success"(click)="savePlayer()" >Save</button>
+                <button type="button" class="btn btn-info" [disabled]="disableAddButton" (click)="addPlayer()">Add</button>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="my-font">
+          <tr *ngFor="let player of playerArray; let i = index">
+            <th *ngIf="player.editMode === false" scope="row">{{player.hashtag}}</th>
+            <td *ngIf="player.editMode === false">{{player.firstName}}</td>
+            <td *ngIf="player.editMode === false">{{player.lastName}}</td>
+            <td *ngIf="player.editMode === false">{{player.score}}</td>
+    
+            <th *ngIf="player.editMode" scope="row">
+              <input [(ngModel)]="player.hashtag" type="text" class="form-control" placeholder="Rank">
+            </th>
+            <td *ngIf="player.editMode">
+              <input [(ngModel)]="player.firstName" type="text" class="form-control" placeholder="First Name">
+    
+            </td>
+            <td *ngIf="player.editMode">
+              <input [(ngModel)]="player.lastName" type="text" class="form-control" placeholder="Last Name">
+    
+            </td>
+            <td *ngIf="player.editMode">
+              <input [(ngModel)]="player.score" type="text" class="form-control" placeholder="Score">
+    
+            </td>
+    
+            <td><button type="button" class="btn btn-danger pull-right" (click)="removePlayer(i)">X</button></td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
 </div>

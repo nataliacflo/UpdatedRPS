@@ -28,21 +28,21 @@ export class ViewComponent implements OnInit {
         hashtag: 1,
         firstName: 'Mark',
         lastName: 'Otto',
-        score: '45',
+        score: '5',
         editMode: false
       },
       {
         hashtag: 2,
         firstName: 'Mike',
         lastName: 'Tyson',
-        score: '30',
+        score: '4',
         editMode: false
       },
       {
         hashtag: 3,
         firstName: 'Paulo',
         lastName: 'Carmelo',
-        score: '20',
+        score: '3',
         editMode: false
       }
     ];
