@@ -1,6 +1,7 @@
 .my-container {
   background-color: rgb(65, 120, 146);
   margin-bottom: auto;
+  height: 100%;
 }
 
 .my-header {

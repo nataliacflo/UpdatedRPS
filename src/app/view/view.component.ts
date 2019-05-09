@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../control/game.service';
-import {ResultService} from '../model/result.service';
+import { ResultService } from '../model/result.service';
 
 interface IPlayer {
   hashtag: number;
-  firstName: string;
-  lastName: string;
-  score: string;
-  editMode: boolean;
+  user: string;
+  userScore: number;
+  computer: string;
+  computerScore: number;
+  winner: string;
 }
 
 @Component({
@@ -18,65 +19,87 @@ interface IPlayer {
 export class ViewComponent implements OnInit {
 
   playerArray: Array<IPlayer> = [];
+  gameResult: Array<number> = [];
   disableAddButton = false;
-  constructor(private game: GameService,
-              private result: ResultService) { }
+  constructor(private game: GameService, private result: ResultService) { }
 
   ngOnInit() {
-    this.playerArray = [
-      {
-        hashtag: 1,
-        firstName: 'Mark',
-        lastName: 'Otto',
-        score: '5',
-        editMode: false
-      },
-      {
-        hashtag: 2,
-        firstName: 'Mike',
-        lastName: 'Tyson',
-        score: '4',
-        editMode: false
-      },
-      {
-        hashtag: 3,
-        firstName: 'Paulo',
-        lastName: 'Carmelo',
-        score: '3',
-        editMode: false
-      }
-    ];
+    const gameData = JSON.parse(localStorage.getItem('players'));
+    console.log('gameData...', gameData);
+    if (gameData && gameData.length > 0) {
+      this.playerArray = gameData;
+    }
+
   }
 
   onClick(choice: string) {
-    this.game.Play(choice);
+    this.gameResult = this.game.Play(choice);
+    console.log('from onClick..... this.gameResult', this.gameResult);
+    let roundWinner;
+    switch (true) {
+      case this.gameResult[0] > this.gameResult[1]:
+        roundWinner = 'User';
+        break;
+      case this.gameResult[0] < this.gameResult[1]:
+        roundWinner = 'Computer';
+        break;
+      default:
+        roundWinner = 'Draw';
+        break;
+    }
+    this.playerArray.unshift({
+      hashtag: 1,
+      user: 'User',
+      userScore: this.gameResult[0],
+      computer: 'Computer',
+      computerScore: this.gameResult[1],
+      winner: roundWinner
+    });
+    this.rank(this.playerArray);
+    this.savetoLocalStorage();
   }
 
   addPlayer() {
-    this.playerArray.unshift({
-        hashtag: null,
-        firstName: null,
-        lastName: null,
-        score: null,
-        editMode: true
-    });
-    this.disableAddButton = true;
+    // this.playerArray.unshift({
+    //     hashtag: null,
+    //     firstName: null,
+    //     lastName: null,
+    //     score: null,
+    //     editMode: true
+    // });
+    // this.disableAddButton = true;
+    // this.savetoLocalStorage();
   }
 
   removePlayer(index: number) {
     this.playerArray.splice(index, 1);
+    this.rank(this.playerArray);
+    this.savetoLocalStorage();
   }
 
   savePlayer() {
-    this.playerArray[0].editMode = false;
-    this.disableAddButton = false;
-
-    this.sort('asc');
+    // this.playerArray[0].editMode = false;
+    // this.disableAddButton = false;
+    // this.sort('asc');
+    // this.savetoLocalStorage();
   }
 
   sort(direction: string) {
     this.playerArray.sort((a: IPlayer, b: IPlayer) => {
       return a.hashtag < b.hashtag ? -1 : 1;
     });
+  }
+
+  savetoLocalStorage() {
+    localStorage.setItem('players', JSON.stringify(this.playerArray));
+  }
+
+  rank(items: Array<any>) {
+    const output = items.sort((prev, pres) => {
+      return prev.userScore > prev.userScore ? -1 : 1;
+    }).map((item, i, arr) => {
+      item.hashtag = i + 1;
+    });
+    console.log('output', output);
   }
 }

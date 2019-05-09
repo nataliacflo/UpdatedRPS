@@ -7,7 +7,7 @@ import {ResultService} from '../model/result.service';
 export class GameService {
   messageOut: string;
   compChoice: string;
-  userChoice: string
+  userChoice: string;
   // '1' - Paper , '2' - Rock , '3' - Scissors
   rockPaperScissors = ['r' , 'p' , 's'];
 
@@ -89,5 +89,6 @@ export class GameService {
       }
     }
     console.log(this.gameResult.getResult());
+    return this.gameResult.getResult();
   }
 }
